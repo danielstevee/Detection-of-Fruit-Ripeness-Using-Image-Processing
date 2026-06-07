@@ -32,70 +32,6 @@ print("Path Dataset:", path)
 Pastikan menggunakan Python 3.11
 ---
 
----
-
-# Git LFS (Penting)
-
-Project ini menggunakan file model AI dengan format:
-
-```text
-models/fruit_ripeness_model.h5
-models/tomato_ripeness_model.h5
-```
-
-Karena ukuran model cukup besar (>100MB), repository menggunakan **Git Large File Storage (Git LFS)**.
-
-Jika ingin clone project dan menggunakan model yang sudah ditraining tanpa melakukan training ulang, install Git LFS terlebih dahulu.
-
-## Install Git LFS
-
-Download:
-
-https://git-lfs.com/
-
-Setelah install, jalankan:
-
-```bash
-git lfs install
-```
-
-Clone repository:
-
-```bash
-git clone <repository-url>
-```
-
-Masuk folder project:
-
-```bash
-cd Detection-of-Fruit-Ripeness-Using-Image-Processing
-```
-
-Download file model LFS:
-
-```bash
-git lfs pull
-```
-
-Setelah selesai, file model `.h5` akan otomatis tersedia.
-
-Dengan Git LFS, pengguna tidak perlu melakukan training ulang model dari awal.
-
----
-
-# Catatan
-
-Jika file model belum muncul setelah clone repository:
-
-```bash
-git lfs pull
-```
-
-Pastikan Git LFS sudah terinstall dengan benar.
-
----
-
-
 # Struktur Folder
 
 ```text
@@ -261,6 +197,14 @@ py -3.11 predict.py
 
 ---
 
+# Menjalankan Aplikasi Web
+
+Jalankan:
+
+```bash
+py -3.11 app.py
+
+
 # Alur Sistem
 
 ```text
@@ -273,6 +217,8 @@ Training CNN VGG16
 Model AI (.h5)
       ↓
 Prediksi Gambar Baru
+      ↓
+App.py (aplikasi web)
 ```
 
 ---
