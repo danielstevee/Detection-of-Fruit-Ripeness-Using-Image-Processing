@@ -7,7 +7,7 @@ def preprocess_image(image_path):
     img = cv2.imread(image_path)
 
     # Resize sesuai VGG16
-    img = cv2.resize(img, (224, 224))
+    img = cv2.resize(img, (300, 300))
 
     # Normalisasi
     img = img / 255.0
