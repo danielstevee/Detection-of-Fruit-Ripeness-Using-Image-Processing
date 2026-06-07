@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>VerdantVision AI | Deteksi Kematangan Buah</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -139,7 +140,13 @@
 
   /* ─── STATS ───────────────────────────── */
   .stats { background: var(--cream); border-top: 1px solid var(--cream-dark); border-bottom: 1px solid var(--cream-dark); padding: 3rem 5%; }
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
   .stat-item { text-align: center; }
   .stat-num { font-family: 'Fraunces', serif; font-size: 2.6rem; color: var(--mint-dark); display: block; letter-spacing: -0.04em; }
   .stat-label { font-size: 0.78rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.25rem; }
@@ -270,6 +277,27 @@
   .bento-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(61,122,94,0.1); }
   .bento-card.span-8 { grid-column: span 8; }
   .bento-card.span-4 { grid-column: span 4; }
+  .bento-img,
+.bento-horiz .bento-img-wrap img {
+    transition: transform 0.7s ease;
+}
+
+.bento-card:hover .bento-img,
+.bento-card:hover .bento-img-wrap img {
+    transform: scale(1.08);
+}
+.bento-title,
+.bento-tag {
+    transition: all 0.3s ease;
+}
+
+.bento-card:hover .bento-title {
+    transform: translateY(-2px);
+}
+
+.bento-card:hover .bento-tag {
+    letter-spacing: 0.12em;
+}
   .bento-img { width: 100%; height: 280px; object-fit: cover; }
   .bento-body { padding: 1.5rem; }
   .bento-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mint); font-weight: 500; margin-bottom: 0.5rem; display: block; }
@@ -291,21 +319,143 @@
   .bento-horiz .bento-img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); }
 
   /* ─── INSIGHTS ────────────────────────── */
-  .insights { padding: 7rem 5%; }
-  .insights-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }
-  .insights h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); color: var(--earth-dark); letter-spacing: -0.02em; }
-  .link-more { font-size: 0.875rem; color: var(--mint); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
-  .link-more:hover { gap: 0.6rem; }
-  .articles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .article-card { cursor: pointer; }
-  .article-img-wrap { border-radius: var(--r-lg); overflow: hidden; margin-bottom: 1.25rem; aspect-ratio: 4/3; }
-  .article-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-  .article-card:hover .article-img-wrap img { transform: scale(1.06); }
-  .article-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mint); font-weight: 500; margin-bottom: 0.5rem; display: block; }
-  .article-title { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--earth-dark); margin-bottom: 0.5rem; transition: color 0.2s; }
-  .article-card:hover .article-title { color: var(--mint); }
-  .article-excerpt { font-size: 0.875rem; color: var(--text-light); font-weight: 300; line-height: 1.65; }
 
+.insights {
+    padding: 7rem 5%;
+}
+
+.insights-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.insights h2 {
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    color: var(--earth-dark);
+    letter-spacing: -0.02em;
+}
+
+.link-more {
+    font-size: 0.875rem;
+    color: var(--mint);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.3s ease;
+}
+
+.link-more:hover {
+    gap: 0.6rem;
+    color: var(--mint-dark);
+}
+
+/* Articles Grid */
+
+.articles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.article-card {
+    cursor: pointer;
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-8px);
+}
+
+/* Image */
+
+.article-img-wrap {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    aspect-ratio: 4/3;
+}
+
+.article-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.article-card:hover .article-img-wrap img {
+    transform: scale(1.08);
+}
+
+/* Tags */
+
+.article-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--mint);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+    transition: letter-spacing 0.3s ease;
+}
+
+.article-card:hover .article-tag {
+    letter-spacing: 0.12em;
+}
+
+/* Title */
+
+.article-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    color: var(--earth-dark);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.article-card:hover .article-title {
+    color: var(--mint);
+    transform: translateX(4px);
+}
+
+/* Description */
+
+.article-excerpt {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-weight: 300;
+    line-height: 1.65;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+    .articles {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+
+    .insights-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .articles {
+        grid-template-columns: 1fr;
+    }
+
+}
   /* ─── CTA ─────────────────────────────── */
   .cta-section { padding: 5rem 5%; }
   .cta-box { background: var(--mint-dark); border-radius: var(--r-xl); padding: 5rem 6rem; text-align: center; position: relative; overflow: hidden; }
@@ -320,26 +470,176 @@
   .cta-btns .btn-outline:hover { background: rgba(255,255,255,0.08); }
 
   /* ─── FOOTER ──────────────────────────── */
-  footer { background: var(--cream); border-top: 1px solid var(--cream-dark); padding: 4rem 5% 2rem; }
-  .footer-top { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--cream-dark); }
-  .footer-brand { font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--mint-dark); margin-bottom: 0.75rem; }
-  .footer-tagline { font-size: 0.875rem; color: var(--text-light); font-weight: 300; line-height: 1.65; max-width: 240px; margin-bottom: 1.5rem; }
-  .footer-socials { display: flex; gap: 0.6rem; }
-  .social-btn { width: 36px; height: 36px; border: 1px solid var(--sand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--text-mid); text-decoration: none; transition: all 0.2s; }
-  .social-btn:hover { background: var(--mint-dark); color: #fff; border-color: var(--mint-dark); }
-  .footer-col-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--earth); font-weight: 500; margin-bottom: 1.25rem; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-col a { font-size: 0.875rem; color: var(--text-light); text-decoration: none; font-weight: 300; transition: color 0.2s; }
-  .footer-col a:hover { color: var(--mint); }
-  .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; color: var(--text-light); }
-  .footer-status { display: flex; align-items: center; gap: 0.5rem; }
-  .footer-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #5cb85c; display: block; }
 
+footer {
+    background: var(--cream);
+    border-top: 1px solid var(--cream-dark);
+    padding: 5rem 5% 2rem;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--cream-dark);
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.footer-brand img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.footer-brand span {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--mint-dark);
+}
+.footer-tagline {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 320px;
+    margin-bottom: 1.5rem;
+}
+
+/* Social */
+
+.footer-socials {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.social-btn {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--sand);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-mid);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    background: var(--mint-dark);
+    border-color: var(--mint-dark);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* Columns */
+
+.footer-col-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--earth);
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+}
+
+.footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 300;
+    transition: all 0.25s ease;
+}
+
+.footer-col a:hover {
+    color: var(--mint);
+    padding-left: 4px;
+}
+
+/* Bottom */
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.footer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--mint-dark);
+    font-weight: 500;
+}
+
+.footer-status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #5cb85c;
+    display: block;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+
+    .footer-top {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-brand {
+        font-size: 1.25rem;
+    }
+
+}
   /* ─── RESPONSIVE ──────────────────────── */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 5%; min-height: auto; }
     .hero::before { display: none; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid {         grid-template-columns: repeat(3, 1fr);
+        gap: 1rem; }
     .scanner { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 5%; }
     .bento { display: flex; flex-direction: column; }
     .bento-horiz { flex-direction: column; }
@@ -375,13 +675,35 @@
 .nav-cta:active {
   transform: translateY(0);
 }
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.nav-logo img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.nav-logo span {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--mint-dark);
+}
 </style>
 </head>
 <body>
-
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">mata(ng)</div>
+
+  <div class="nav-logo">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="mata(ng) Logo">
+    <span>mata(ng)</span>
+  </div>
 
   <ul class="nav-links">
     <li><a href="#scanner">Pemindai</a></li>
@@ -393,8 +715,8 @@
   <a href="#scanner" class="nav-cta">
     Mulai Sekarang
   </a>
-</nav>
 
+</nav>
 <!-- HERO -->
 <section class="hero" id="beranda">
   <div class="hero-content">
@@ -430,7 +752,6 @@
   <div class="stats-grid">
     <div class="stat-item"><span class="stat-num">99.4%</span><span class="stat-label">Tingkat Akurasi</span></div>
     <div class="stat-item"><span class="stat-num">0.3d</span><span class="stat-label">Waktu Analisis</span></div>
-    <div class="stat-item"><span class="stat-num">50+</span><span class="stat-label">Jenis Buah</span></div>
     <div class="stat-item"><span class="stat-num">24/7</span><span class="stat-label">Pemantauan</span></div>
   </div>
 </div>
@@ -439,9 +760,9 @@
 <section class="scanner" id="scanner">
   <div>
     <span class="section-tag">Antarmuka Pemindai</span>
-    <h2>Pemindai Presisi Verdant</h2>
+    <h2>Pemindai Presisi <br/>Kematangan Buah</h2>
     <p class="scanner-desc">
-      Jaringan saraf kami menganalisis tekstur kulit, variasi warna, dan tanda spektral untuk menentukan kadar gula internal dan potensi masa simpan buah.
+      Sistem memanfaatkan teknik pengolahan citra digital untuk menganalisis karakteristik warna buah dan mengklasifikasikan tingkat kematangannya secara otomatis.
     </p>
     <div class="tip-list">
       <div class="tip">
@@ -518,67 +839,109 @@
       </div>
       {% endif %}
 
-      <div class="scanner-footer">
-        <div class="status-dot">AI Siap Digunakan</div>
-        <div class="scanner-meta">
-          <span class="meta-tag">BUAH_ID: V09</span>
-          <span class="meta-tag">LAT: -7.25</span>
-        </div>
-      </div>
+<div class="scanner-footer">
+  <div class="status-dot">Siap Menganalisis Gambar</div>
+  <div class="scanner-meta">
+    <span class="meta-tag">Image Processing</span>
+    <span class="meta-tag">Machine Learning</span>
+  </div>
+</div>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section class="features" id="features">
+
   <div class="features-head">
     <div>
       <span class="section-tag">Kemampuan Sistem</span>
-      <h2>Wawasan Pertanian Tingkat Lanjut</h2>
+      <h2>Teknologi Deteksi Kematangan Buah</h2>
     </div>
-    <p class="features-sub">Didukung oleh pencitraan multispektral dan jaringan saraf dalam yang eksklusif.</p>
+    <p class="features-sub">
+      Memanfaatkan pengolahan citra digital dan machine learning untuk mengidentifikasi tingkat kematangan buah secara otomatis.
+    </p>
   </div>
+
   <div class="bento">
+
+    <!-- CARD 1 -->
     <div class="bento-card span-8">
-      <img alt="Buah jeruk" class="bento-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-EEltKqIoEgBeHV7SHgbP-fqegpzj2SmJ7ZZLRbPIYQ4-5YB52TB7wbft4PQhQQVesIpt5PCy5EGLCt_92D_AtJygYevd06Lo9mYGCxj2KQWWhQ8MYkyOhysUOV1Nn311F-v2GaXU9mwjTNNBuZJWNMqziN_MXlNQb1cjGTqgxmTiCgOUDVMxUGSs2gUytMffSv87EI8o0sil_ong6WuyGDUWdoyh_S4296shH-uX8EtYMfWhkumri1uH3SWBlFOGB6-BbhhDTFQ"/>
+      <img
+        alt="Analisis warna buah"
+        class="bento-img"
+        src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=1200&auto=format&fit=crop">
+
       <div class="bento-body">
-        <span class="bento-tag">Analisis Spektral</span>
-        <h3 class="bento-title">Pemetaan Warna</h3>
-        <p class="bento-desc">Analisis spektral real-time pada pigmen kulit untuk mendeteksi kekurangan nutrisi sebelum gejala terlihat.</p>
+        <span class="bento-tag">Ekstraksi Fitur</span>
+        <h3 class="bento-title">Analisis Warna Buah</h3>
+        <p class="bento-desc">
+          Sistem menganalisis karakteristik warna pada citra buah sebagai indikator utama dalam menentukan tingkat kematangan.
+        </p>
       </div>
     </div>
+
+    <!-- CARD 2 -->
     <div class="bento-card span-4 bento-dark">
+
+      <img
+        alt="Histogram warna"
+        class="bento-img"
+        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop">
+
       <div class="bento-body">
-        <span class="bento-tag">Perkiraan Panen</span>
-        <h3 class="bento-title">Prediksi Hasil Panen</h3>
-        <p class="bento-desc">Gabungkan data pemindaian untuk memperkirakan volume panen di seluruh sektor kebun.</p>
-        <div class="ripeness-bar"></div>
-        <div class="ripeness-labels"><span>Mentah</span><span>Optimal</span><span>Terlalu Matang</span></div>
+        <span class="bento-tag">Image Processing</span>
+        <h3 class="bento-title">Pengolahan Citra</h3>
+        <p class="bento-desc">
+          Gambar diproses untuk mengekstraksi informasi visual yang relevan sebelum dilakukan proses klasifikasi.
+        </p>
       </div>
     </div>
+
+    <!-- CARD 3 -->
     <div class="bento-card span-4 bento-accent">
-      <div class="bento-body" style="padding: 2rem;">
-        <span class="bento-tag" style="color: var(--earth);">Keberlanjutan</span>
-        <h3 class="bento-title">Eco-Precision</h3>
-        <p class="bento-desc">Kurangi pemborosan pasca-panen hingga 30% melalui jadwal petik yang dioptimalkan oleh AI.</p>
+
+      <img
+        alt="Machine learning"
+        class="bento-img"
+        src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="bento-body">
+        <span class="bento-tag">Machine Learning</span>
+        <h3 class="bento-title">Klasifikasi Otomatis</h3>
+        <p class="bento-desc">
+          Model machine learning memanfaatkan fitur yang diekstraksi untuk menentukan kategori kematangan buah.
+        </p>
       </div>
     </div>
-    <div class="bento-card span-8 bento-horiz">
-      <div class="bento-body">
-        <span class="bento-tag">Integrasi</span>
-        <h3 class="bento-title">Integrasi Global</h3>
-        <p class="bento-desc">Hubungkan dengan mitra logistik melalui API untuk memicu pengiriman rantai dingin secara otomatis saat panen terdeteksi.</p>
-        <div style="margin-top:1.5rem;display:flex;gap:0.5rem;">
-          <div style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--cream-dark);background:var(--warm-white);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:500;color:var(--mint-dark);">A</div>
-          <div style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--cream-dark);background:var(--warm-white);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:500;color:var(--mint-dark);margin-left:-10px;">B</div>
-          <div style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--cream-dark);background:var(--warm-white);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:500;color:var(--mint-dark);margin-left:-10px;">C</div>
-        </div>
-      </div>
-      <div class="bento-img-wrap">
-        <img alt="Dashboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClv2B-1vdJnbpzIbjjEYcF_xGkg_q1BrtES4x__fV2UTWs3JDBkA1TrFyxOd_5vOybWxXfykzwW2k3hrNntc6RqSRwPfex89MKv-S19gNGeh5PvHXgYGgGXKbSCu6zj7QdnjIeuCsXh6P4uvArdWxeSZgik0tpkeLnC_Hz5NiRXVKhu8mYrGf1wU6uPzG3sXIO2IgPIk9MkAO9KxRQ3YPpaGKhCgmgh2qnBhSnvitCs5cSN5vRFa7bcK2pRU2hbulpv8YXQL4EHvI"/>
-      </div>
+
+    <!-- CARD 4 -->
+<div class="bento-card span-8 bento-horiz">
+
+  <div class="bento-body">
+    <span class="bento-tag">Hasil Prediksi</span>
+    <h3 class="bento-title">Deteksi Cepat dan Akurat</h3>
+    <p class="bento-desc">
+      Unggah gambar buah dan sistem akan memberikan hasil klasifikasi tingkat kematangan secara instan.
+    </p>
+
+    <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <div class="meta-tag">Mentah</div>
+      <div class="meta-tag">Setengah Matang</div>
+      <div class="meta-tag">Matang</div>
     </div>
   </div>
+
+  <div class="bento-img-wrap">
+    <img
+      alt="Dashboard Deteksi Buah"
+      src="https://lh3.googleusercontent.com/aida-public/AB6AXuClv2B-1vdJnbpzIbjjEYcF_xGkg_q1BrtES4x__fV2UTWs3JDBkA1TrFyxOd_5vOybWxXfykzwW2k3hrNntc6RqSRwPfex89MKv-S19gNGeh5PvHXgYGgGXKbSCu6zj7QdnjIeuCsXh6P4uvArdWxeSZgik0tpkeLnC_Hz5NiRXVKhu8mYrGf1wU6uPzG3sXIO2IgPIk9MkAO9KxRQ3YPpaGKhCgmgh2qnBhSnvitCs5cSN5vRFa7bcK2pRU2hbulpv8YXQL4EHvI">
+  </div>
+
+</div>
+
+  </div>
+
 </section>
 
 <!-- INSIGHTS -->
@@ -591,90 +954,246 @@
     <a class="link-more" href="#">Jelajahi Selengkapnya →</a>
   </div>
   <div class="articles">
-    <article class="article-card">
-      <div class="article-img-wrap">
-        <img alt="Tanah" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsPlNvjGz4GyDfgY9l31PNhS3Q1nVfUeWZ1XYKKvQePjwGMKLuC3kQcsmBb2NmP3nxPE91jtqWy43svdYoFUsRLg2YQaJLdO01HfIF_r5zUtoURdiJMPPBbcVRjp4fDLg7FVqwiNJ3SwvT-mjlAAN6bwKYYSuCUXEOQA7fMdqUX4EV7-1w_sn-aeOThWRtT1c10eSC8wakfVPmeUBonSRbUH9gAA355G0Pj1tTNHnVEptuTZD8h0DIfw9-Z2uin76VJ4Hqrnqw"/>
-      </div>
-      <span class="article-tag">Keberlanjutan · 4 menit baca</span>
-      <h3 class="article-title">Masa Depan Pertanian Presisi Regeneratif</h3>
-      <p class="article-excerpt">Bagaimana deteksi berbasis AI membantu petani beralih ke metode tanpa olah tanah sambil tetap menjaga hasil panen tertinggi.</p>
-    </article>
-    <article class="article-card">
-      <div class="article-img-wrap">
-        <img alt="Kamera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSqqO0YtiZ5oSxoUEPJQD9k8mJDC5jflqe7jhyxVfz3nK91fcwCcKgZYYOEa2m8ZaZEO7RNb61yxRp8aCwMerf1i1OYJ6BXVZWrXXqFfuVyizzjkUgld8CkqBEDJVOVCWMAC9_qj9XVz6uVZbMdxXP4z41Hh3V3pDlOeRDMiqRSAwxkudGpOGuj8JX3AV_gF5OhH0wG92A1iXcqXi4GWiGXVE1APqgxrNRBD-nwJErC6ECb2jUr38tiUDrtjA7bVnj1BsDuxH71Q"/>
-      </div>
-      <span class="article-tag">Teknologi · 6 menit baca</span>
-      <h3 class="article-title">Pencitraan Spektral vs RGB: Analisis Mendalam</h3>
-      <p class="article-excerpt">Mengapa foto kamera biasa tidak cukup untuk deteksi kematangan sejati dan bagaimana teknologi multispektral kami mengisi kesenjangan itu.</p>
-    </article>
-    <article class="article-card">
-      <div class="article-img-wrap">
-        <img alt="Keranjang buah" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKqcWsCJVCwvRs7F3OmgfYzz4UtvBdoEEX869G0tZZu5U9MLd5PrTwpP4lVEk2wlSI_LAhJ4Y2lI5TyyegUxp8xPBl_QH7LPb2LhfEoPfADUx0ja4GSEFxO2MkAO9KxRQ3YPpaGKhCgmgh2qnBhSnvitCs5cSN5vRFa7bcK2pRU2hbulpv8YXQL4EHvI"/>
-      </div>
-      <span class="article-tag">Tren Pasar · 3 menit baca</span>
-      <h3 class="article-title">Premi Kualitas di Pasar Ekspor Buah Modern</h3>
-      <p class="article-excerpt">Mengapa pengecer membayar hingga 15% lebih mahal untuk produk yang diverifikasi oleh sistem sertifikasi kematangan berbasis AI.</p>
-    </article>
+    <!-- ARTICLE 1 -->
+<article class="article-card"
+         onclick="window.open('https://sciencescholar.us/journal/index.php/ijhs/article/view/10146','_blank')">
+
+  <div class="article-img-wrap">
+    <img
+      src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?q=80&w=1200&auto=format&fit=crop"
+      alt="Fruit Ripeness Detection">
+  </div>
+
+  <span class="article-tag">Jurnal · Image Processing</span>
+
+  <h3 class="article-title">
+    Detection of Fruit Ripeness Using Image Processing
+  </h3>
+
+  <p class="article-excerpt">
+    Penelitian mengenai klasifikasi tingkat kematangan buah menggunakan teknik pengolahan citra digital.
+  </p>
+
+</article>
+    <!-- ARTICLE 2 -->
+<article class="article-card"
+         onclick="window.open('https://ieeexplore.ieee.org/','_blank')">
+
+  <div class="article-img-wrap">
+    <img
+      src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+      alt="Computer Vision">
+  </div>
+
+  <span class="article-tag">Computer Vision</span>
+
+  <h3 class="article-title">
+    Computer Vision for Agricultural Applications
+  </h3>
+
+  <p class="article-excerpt">
+    Pemanfaatan computer vision untuk meningkatkan efisiensi analisis hasil pertanian.
+  </p>
+
+</article>
+    <!-- ARTICLE 3 -->
+<article class="article-card"
+         onclick="window.open('https://www.sciencedirect.com/','_blank')">
+
+  <div class="article-img-wrap">
+    <img
+      src="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?q=80&w=1200&auto=format&fit=crop"
+      alt="Machine Learning">
+  </div>
+
+  <span class="article-tag">Machine Learning</span>
+
+  <h3 class="article-title">
+    Machine Learning for Fruit Quality Assessment
+  </h3>
+
+  <p class="article-excerpt">
+    Studi tentang penggunaan machine learning dalam penilaian kualitas dan kematangan buah.
+  </p>
+
+</article>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-section">
+
   <div class="cta-box">
-    <h2>Siap <em>merevolusi</em><br/>panen kamu?</h2>
-    <p class="cta-desc">Bergabunglah dengan lebih dari 400 perusahaan pertanian global yang menggunakan VerdantVision untuk memaksimalkan kualitas dan meminimalkan pemborosan.</p>
+
+<h2>
+  Saatnya <em>Mencoba</em><br>
+  Sistem Deteksi Buah
+</h2>
+
+<p class="cta-desc">
+  Unggah gambar buah untuk melihat hasil klasifikasi atau bergabung dengan komunitas untuk berdiskusi lebih lanjut.
+</p>
+
     <div class="cta-btns">
-      <button class="btn-primary">Jadwalkan Demo</button>
-      <button class="btn-outline">Bicara dengan Ahli</button>
+
+      <a href="#scanner" class="btn-primary">
+        Mulai Analisis
+      </a>
+
+      <a
+        href="https://chat.whatsapp.com/GNEC2AeTAGA9SbjzWGUxwZ"
+        target="_blank"
+        class="btn-outline">
+        Bergabung Komunitas
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
 <!-- FOOTER -->
+
 <footer>
-  <div class="footer-top">
-    <div>
-      <div class="footer-brand">VerdantVision AI</div>
-      <p class="footer-tagline">Platform pertanian presisi terdepan di dunia untuk deteksi kualitas dan kematangan buah.</p>
-      <div class="footer-socials">
-        <a class="social-btn" href="#">FB</a>
-        <a class="social-btn" href="#">TW</a>
-        <a class="social-btn" href="#">LI</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Platform</div>
-      <ul>
-        <li><a href="#">Inti Pemindai</a></li>
-        <li><a href="#">Dasbor Hasil</a></li>
-        <li><a href="#">Akses API</a></li>
-        <li><a href="#">Aplikasi Mobile</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Sumber Daya</div>
-      <ul>
-        <li><a href="#">White Paper</a></li>
-        <li><a href="#">Dokumentasi</a></li>
-        <li><a href="#">Studi Kasus</a></li>
-        <li><a href="#">Pusat Bantuan</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Perusahaan</div>
-      <ul>
-        <li><a href="#">Tentang Kami</a></li>
-        <li><a href="#">Karier</a></li>
-        <li><a href="#">Keberlanjutan</a></li>
-        <li><a href="#">Kebijakan Privasi</a></li>
-      </ul>
-    </div>
+
+  <div class="footer-top" id="tentang">
+
+<!-- Brand -->
+<div>
+
+  <div class="footer-brand">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="mata(ng) Logo">
+    <span>mata(ng)</span>
+</div>
+
+  <p class="footer-tagline">
+    Sistem deteksi kematangan buah berbasis image processing dan machine learning untuk membantu proses klasifikasi buah secara otomatis dan efisien.
+  </p>
+
+  <div class="footer-socials">
+
+  <a class="social-btn"
+     href="https://github.com/danielstevee/Detection-of-Fruit-Ripeness-Using-Image-Processing"
+     target="_blank"
+     title="GitHub Repository">
+    <i class="fab fa-github"></i>
+  </a>
+
+  <a class="social-btn"
+     href="https://sciencescholar.us/journal/index.php/ijhs/article/view/10146"
+     target="_blank"
+     title="Jurnal Referensi">
+    <i class="fas fa-book-open"></i>
+  </a>
+
+  <a class="social-btn"
+     href="https://chat.whatsapp.com/GNEC2AeTAGA9SbjzWGUxwZ"
+     target="_blank"
+     title="WhatsApp Community">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+</div>
+
+</div>
+
+<!-- Navigation -->
+<div class="footer-col">
+
+  <div class="footer-col-title">
+    Navigasi
   </div>
+
+  <ul>
+    <li><a href="#scanner">Pemindai</a></li>
+    <li><a href="#features">Fitur</a></li>
+    <li><a href="#insights">Referensi</a></li>
+    <li><a href="#tentang">Tentang</a></li>
+  </ul>
+
+</div>
+
+<!-- References -->
+<div class="footer-col">
+
+  <div class="footer-col-title">
+    Referensi
+  </div>
+
+  <ul>
+
+    <li>
+      <a href="https://sciencescholar.us/journal/index.php/ijhs/article/view/10146"
+         target="_blank">
+        Jurnal Utama
+      </a>
+    </li>
+
+    <li>
+      <a href="https://ieeexplore.ieee.org/"
+         target="_blank">
+        IEEE Xplore
+      </a>
+    </li>
+
+    <li>
+      <a href="https://www.sciencedirect.com/"
+         target="_blank">
+        ScienceDirect
+      </a>
+    </li>
+
+  </ul>
+
+</div>
+
+<!-- Community -->
+<div class="footer-col">
+
+  <div class="footer-col-title">
+    Komunitas
+  </div>
+
+  <ul>
+
+    <li>
+      <a href="https://chat.whatsapp.com/GNEC2AeTAGA9SbjzWGUxwZ"
+         target="_blank">
+        Grup Diskusi
+      </a>
+    </li>
+
+    <li>
+      <a href="https://github.com/danielstevee/Detection-of-Fruit-Ripeness-Using-Image-Processing"
+         target="_blank">
+        Source Code
+      </a>
+    </li>
+
+  </ul>
+
+</div>
+
+
+  </div>
+
   <div class="footer-bottom">
-    <span>© 2024 VerdantVision AI. Semua hak dilindungi.</span>
-    <div class="footer-status">Semua Sistem Berjalan Normal</div>
-    <span>Didukung oleh Precision Agriculture Group</span>
+
+<span>
+  © 2026 mata(ng). All Rights Reserved.
+</span>
+
+<div class="footer-status">
+  Sistem Siap Digunakan
+</div>
+
+<span>
+  Developed by Mahasiswa Informatika UNESA
+</span>
+
   </div>
+
 </footer>
 
 <script>
